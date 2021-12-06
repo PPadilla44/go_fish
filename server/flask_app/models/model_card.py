@@ -8,3 +8,10 @@ class Card:
 
     def card_info(self):
         return(f"{self.string_val} of {self.suit}")
+
+    def serialized(self):
+        return {
+            "suit": self.suit,
+            "point_val": self.point_val,
+            "string_val": self.string_val
+        }

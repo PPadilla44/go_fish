@@ -24,18 +24,32 @@ def start():
 
     deck.shuffle_cards()
 
-    deck.deal_cards(6, [player_1, player_2, player_3, player_4])
+    text_with_pairs = deck.deal_cards(6, [player_1, player_2, player_3, player_4])
 
-    i = 0
-    while(Player.check_players_hands()):
-        if i >= len(Player.all_players):
-            i = 0
-        player = Player.all_players[i]
-        print(
-            f"***************************   {player.name}'s turn  *************************")
-        player.turn()
-        i += 1
+    context = {
+        "pairs_text": text_with_pairs,
+        "deck": deck.serialized(),
+    }
 
-    Player.list_player_scores()
 
-    return jsonify(MSG="STARTING")
+    return jsonify(context)
+
+
+
+    # i = 0
+
+    # while(Player.check_players_hands()):
+    #     if i >= len(Player.all_players):
+    #         i = 0
+    #     player = Player.all_players[i]
+    #     print(
+    #         f"***************************   {player.name}'s turn  *************************"
+    #         )
+    #     if i == 0:
+    #         player.turn(True)
+    #     else:
+    #         player.turn(False)
+    #     i += 1
+    # Player.list_player_scores()
+    
+

@@ -9,6 +9,7 @@ class Player:
         self.hand = []
         Player.all_players.append(self)
         Player.total_players += 1
+        deck.players.append(self)
     
     @classmethod
     def list_all_players(cls):

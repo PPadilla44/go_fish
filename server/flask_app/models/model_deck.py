@@ -1,5 +1,8 @@
+from typing import List
+from .model_player import Player
 from .model_card import Card
 import random
+from flask import jsonify
 
 class Deck:
 
@@ -8,6 +11,7 @@ class Deck:
 
         suits = [ "spades" , "hearts" , "clubs" , "diamonds" ]
         self.cards = []
+        self.players = []
 
         for s in suits:
             for i in range(1,14):
@@ -37,8 +41,37 @@ class Deck:
         self.cards = shuffed_deck
 
 
-    def deal_cards(self, amount, players):
+    def deal_cards(self, amount, players:List[Player]):
+        players_with_pairs = []
         for player in players:
             for x in range(amount):
                 player.hand.append(self.cards.pop())
-            player.check_for_pairs()
+            check_pairs = player.check_for_pairs()
+            if check_pairs:
+                players_with_pairs.append(check_pairs)
+
+        return players_with_pairs
+
+
+    def serialized(self):
+
+        serialzed_cards = []
+        for card in self.cards:
+            serialzed_cards.append(card.serialized())
+        
+        all_players = []
+        for player in self.players:
+            serialzed_hand = []
+            for card in player.hand:
+                serialzed_hand.append(card.serialized())
+            all_players.append( {
+                "name": player.name,
+                "hand": serialzed_hand
+            })
+
+        return  {
+            "cards": serialzed_cards,
+            "all_players": all_players
+        }
+
+    
