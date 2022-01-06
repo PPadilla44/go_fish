@@ -1,21 +1,51 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { fetchGame } from "../store/utils/thunkCreators";
 import PlayerList from "./PlayerList";
 
 const Game = (props) => {
-    const { game, fetchGame } = props;
+    const { game, players, fetchGame } = props;
+
+    const [selectedCard, setSelectedCard] = useState({});
+    const [selectedPlayer, setSelectedPlayer] = useState({});
 
     useEffect(() => {
         fetchGame();
     }, [fetchGame])
 
+    useEffect(() => {
+        let canRun = Object.keys(selectedCard).length !== 0 && Object.keys(selectedPlayer).length !== 0;
+        
+        if (canRun) {
+
+            for (const possCard of selectedPlayer.hand) {
+                if (selectedCard.point_val === possCard.point_val && selectedCard.suit === possCard.suit ) {
+                    console.log(selectedCard);
+                }
+            }
+            // Remove cards and add points
+        }
+
+    }, [selectedCard, selectedPlayer])
+
+    if (players.isFetching) {
+        return <div>Loading...</div>;
+    }
+
+
     return (
         <div>
-            <h1>GO FISH</h1>    
+            <h1>GO FISH</h1>
 
-            <PlayerList />
+            {players[0].hand.map((c, i) => {
+                return (
+                    <div key={i} onClick={() => setSelectedCard(c)}>
+                        <p>{c.point_val} {c.suit}</p>
+                    </div>
+                )
+            })}
 
+            <PlayerList players={players} setSelectedPlayer={setSelectedPlayer} />
 
         </div>
     );
