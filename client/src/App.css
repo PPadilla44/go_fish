@@ -1,39 +1,72 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --game-width: 1200px;
+  --game-height: 675px;
+  --card-width: 75px;
+  --card-height: 100px;
+  --player-width: 400px;
+  --player-height: 150px;
+}
+
 .App {
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgb(39, 39, 39);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.gv {
+  background-color: gainsboro;
+  width: var(--game-width);
+  height: var(--game-height);
+  overflow: scroll;
+  position: relative;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-float infinite 3s ease-in-out;
-  }
+.game {
+  /* position: relative; */
 }
 
-.App-header {
-  min-height: 100vh;
+.player-list{
+  /* position: relative; */
+}
+
+.player {
+  position: absolute;
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: var(--player-width);
+  height: var(--player-height);
+}
+
+
+.card-list {
+  display: flex;
+  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  height: 356px; 
+  width: var(--player-width); 
+  position: relative; 
 }
 
-.App-link {
-  color: rgb(112, 76, 182);
+.card {
+  width: var(--card-width);
+  height: var(--card-height);
+  background-color: red;
+  position: absolute;
+  box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.2); 
+  transform-origin: center 400px; 
+  transition: all .4s linear; 
 }
 
-@keyframes App-logo-float {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(10px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
+.card:hover {
+  z-index: 1;
+  cursor: pointer;
 }
