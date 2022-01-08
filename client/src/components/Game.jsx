@@ -34,19 +34,8 @@ const Game = (props) => {
 
 
     return (
-        <div>
-            <h1>GO FISH</h1>
-
-            {players[0].hand.map((c, i) => {
-                return (
-                    <div key={i} onClick={() => setSelectedCard(c)}>
-                        <p>{c.point_val} {c.suit}</p>
-                    </div>
-                )
-            })}
-
+        <div className="game">
             <PlayerList players={players} setSelectedPlayer={setSelectedPlayer} />
-
         </div>
     );
 };
