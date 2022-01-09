@@ -29,6 +29,8 @@ def start():
     context = {
         "pairs_text": text_with_pairs,
         "deck": deck.serialized(),
+        "selectedCard": {},
+        "selectedPlayer": {}
     }
 
 

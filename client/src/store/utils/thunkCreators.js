@@ -1,5 +1,5 @@
 import axios from "axios";
-import { gotGame } from "../game";
+import { doneSetCard, doneSetPlayer, gotGame } from "../game";
 import { gotPlayers } from "../players";
 
 // START GAME
@@ -12,6 +12,14 @@ export const fetchGame = () => async (dispatch) => {
     } catch (error) {
         console.error(error);
     }
+}
+
+export const setPlayer = (player) => async (dispatch) => {
+    dispatch(doneSetPlayer(player));
+}
+
+export const setCard = (card) => async (dispatch) => {
+    dispatch(doneSetCard(card));
 }
 
 // PLAYER THUNK CREATORS

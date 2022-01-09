@@ -8,7 +8,7 @@
   --game-height: 675px;
   --card-width: 75px;
   --card-height: 100px;
-  --player-width: 400px;
+  --player-width: 300px;
   --player-height: 150px;
 }
 
@@ -25,7 +25,7 @@
   background-color: gainsboro;
   width: var(--game-width);
   height: var(--game-height);
-  overflow: scroll;
+  overflow: hidden;
   position: relative;
 }
 
@@ -44,6 +44,8 @@
   align-items: center;
   width: var(--player-width);
   height: var(--player-height);
+  background-color: red;
+  border-radius: 100%;
 }
 
 
@@ -51,19 +53,38 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 356px; 
+  height: 100%;
   width: var(--player-width); 
   position: relative; 
+}
+
+.card-list:hover .card {
+  transform-origin: center 600px; 
+
 }
 
 .card {
   width: var(--card-width);
   height: var(--card-height);
-  background-color: red;
+  background-color: white;
+  border-radius: 8px;
+  border: 1px solid black;
+  display: flex;
+  justify-content: space-between;
   position: absolute;
+  flex-direction: column;
   box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.2); 
   transform-origin: center 400px; 
   transition: all .4s linear; 
+  padding: 5px;
+}
+
+.card-top {
+  align-self: flex-start;
+}
+.card-btm {
+  align-self: flex-end;
+  transform: rotate(-180deg);
 }
 
 .card:hover {

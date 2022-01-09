@@ -4,7 +4,7 @@ import { fetchGame } from "../store/utils/thunkCreators";
 import PlayerList from "./PlayerList";
 
 const Game = (props) => {
-    const { game, players, fetchGame } = props;
+    const { players, fetchGame } = props;
 
     const [selectedCard, setSelectedCard] = useState({});
     const [selectedPlayer, setSelectedPlayer] = useState({});
@@ -35,7 +35,11 @@ const Game = (props) => {
 
     return (
         <div className="game">
-            <PlayerList players={players} setSelectedPlayer={setSelectedPlayer} />
+            <PlayerList 
+                players={players} 
+                setSelectedPlayer={setSelectedPlayer} 
+                setSelectedCard={setSelectedCard}
+                />
         </div>
     );
 };
