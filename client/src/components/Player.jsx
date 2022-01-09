@@ -6,7 +6,7 @@ import { setPlayer } from '../store/utils/thunkCreators';
 const Player = (props) => {
 
     const { index, data, setPlayer } = props;
-    const { hand, name } = data;
+    const { hand, name, is_user } = data;
 
     const position = {
         "0" : {
@@ -36,7 +36,7 @@ const Player = (props) => {
     return (
         <div className='player' style={ styles.player } onClick={() => setPlayer(data)}>
             <h1>{ name }</h1>
-            <CardList cardList={hand} />
+            <CardList cardList={hand} isUser={is_user}/>
         </div>
     )
 }

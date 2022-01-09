@@ -4,6 +4,7 @@ const GET_PLAYER = "GET_PLAYER";
 const GET_PLAYERS = "GET_PLAYERS";
 const SET_FETCHING_STATUS = "SET_FETCHING_STATUS";
 
+
 // ACTION CREATORS
 
 export const gotPlayer = (player) => {

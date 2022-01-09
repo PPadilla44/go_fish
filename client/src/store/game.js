@@ -1,10 +1,12 @@
 // ACTIONS
 
+import { setCardToStore, setPlayerToStore, setPairToStore } from "./utils/reducerFunctions";
+
 const START_GAME = "START_GAME";
 const SET_FETCHING_STATUS = "SET_FETCHING_STATUS";
 const SET_PLAYER = "SET_PLAYER";
 const SET_CARD = "SET_CARD";
-
+const SET_FOUND_PAIR = "SET_FOUND_PAIR";
 
 export const gotGame = (game) => {
     return {
@@ -32,6 +34,12 @@ export const doneSetCard = (card) => {
     }
 }
 
+export const checkingForPair = () => {
+    return {
+        type: SET_FOUND_PAIR,
+    }
+}
+
 // REDUCER
 
 const reducer = (state = { isFetching: true }, action) => {
@@ -39,11 +47,11 @@ const reducer = (state = { isFetching: true }, action) => {
         case START_GAME:
             return action.game;
         case SET_PLAYER:
-            state.selectedPlayer = action.player;
-            return state;
+            return setPlayerToStore(state, action.player);
         case SET_CARD:
-            state.selectedCard = action.card;
-            return state;
+            return setCardToStore(state, action.card);
+        case SET_FOUND_PAIR:
+            return setPairToStore(state)
         default:
             return state;
     }

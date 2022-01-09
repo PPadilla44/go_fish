@@ -1,3 +1,5 @@
+import uuid
+
 class Player:
 
     all_players = []
@@ -9,6 +11,7 @@ class Player:
         self.hand = []
         Player.all_players.append(self)
         Player.total_players += 1
+        self.id = f'P{uuid.uuid1()}'
         deck.players.append(self)
     
     @classmethod

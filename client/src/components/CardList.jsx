@@ -6,9 +6,8 @@ import Card from './Card';
 
 const CardList = (props) => {
 
-    const { cardList } = props;
+    const { cardList, isUser } = props;
     const [rotateAmt, setRotateAmt] = useState(new Array(cardList.length));
-
 
     useEffect(() => {
 
@@ -33,16 +32,17 @@ const CardList = (props) => {
         }
         rotateCards();
         
-    }, [cardList, rotateAmt])
+    }, [cardList])
 
     return (
-        <div className='card-list'>
+        <div className={isUser ? 'card-list card-list-user': "card-list card-list-other"}>
             {
                 cardList.map((c, i) =>
                     <Card
                         key={i}
                         data={c}
                         rotation={rotateAmt[i]}
+                        isUser={isUser}
                     />
                 )
             }

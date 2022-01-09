@@ -66,7 +66,9 @@ class Deck:
                 serialzed_hand.append(card.serialized())
             all_players.append( {
                 "name": player.name,
-                "hand": serialzed_hand
+                "hand": serialzed_hand,
+                "is_user": player.is_user,
+                "id": player.id
             })
 
         return  {

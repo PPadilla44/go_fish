@@ -3,8 +3,9 @@ from .model_player import Player
 
 class GoldFishPlayer(Player):
 
-    def __init__(self, name, deck):
+    def __init__(self, name, deck, is_user = False):
         super().__init__(name, deck)
+        self.is_user = is_user
         self.pairs = 0
 
     def check_for_pairs(self):
@@ -146,7 +147,9 @@ class GoldFishPlayer(Player):
             serialzed_cards.append(card.serialized())
         return {
             "name": self.name,
-            "hand": serialzed_cards
+            "hand": serialzed_cards,
+            "is_user": self.is_user,
+            "id": self.id
         }
 
 

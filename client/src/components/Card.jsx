@@ -6,7 +6,7 @@ import CardFace from './CardFace';
 
 const Card = (props) => {
 
-    const { data, rotation, setCard } = props
+    const { data, rotation, setCard, isUser } = props
     const { point_val: pointVal, suit } = data;
 
     const suits = {
@@ -27,22 +27,24 @@ const Card = (props) => {
 
 
     const onHover = (e) => {
-        if (ref.current.style.transform.length < 20) {
+        if (ref.current.style.transform.length < 20 && isUser) {
             ref.current.style.transform += `translateY(-15px)`
         }
     }
 
     const offHover = () => {
-        ref.current.style.transform = `rotate(${rotation}deg)`
+        if(isUser) {
+            ref.current.style.transform = `rotate(${rotation}deg)`
+        }
     }
 
     return (
-        <div className='card'
+        <div className={isUser ? "card card-user" : "card card-other"}
             ref={ref}
             style={styles.card}
             onMouseOver={onHover}
             onMouseLeave={offHover}
-            onClick={() => setCard(data)}
+            onClick={() => setCard(data, isUser)}
         >
             <CardFace
                 top={true}
@@ -61,8 +63,8 @@ const Card = (props) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        setCard: (card) => {
-            dispatch(setCard(card))
+        setCard: (card, isUser) => {
+            dispatch(setCard(card, isUser))
         }
     }
 }

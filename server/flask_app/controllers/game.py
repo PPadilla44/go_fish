@@ -17,7 +17,7 @@ def start():
 
     deck = Deck()
 
-    player_1 = GoldFishPlayer("Pablo", deck)
+    player_1 = GoldFishPlayer("Pablo", deck, True)
     player_2 = GoldFishPlayer("Tyler", deck)
     player_3 = GoldFishPlayer("Jessica", deck)
     player_4 = GoldFishPlayer("Bobby", deck)
@@ -27,7 +27,7 @@ def start():
     text_with_pairs = deck.deal_cards(6, [player_1, player_2, player_3, player_4])
 
     context = {
-        "pairs_text": text_with_pairs,
+        "text": text_with_pairs,
         "deck": deck.serialized(),
         "selectedCard": {},
         "selectedPlayer": {}
