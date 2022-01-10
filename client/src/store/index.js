@@ -3,11 +3,9 @@ import loggerMiddleware from "redux-logger";
 import thunkMiddleware from "redux-thunk";
 
 
-import players from "./players";
 import game from "./game";
 
 const appReducer = combineReducers({
-  players,
   game,
 })
 

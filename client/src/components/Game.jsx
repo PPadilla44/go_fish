@@ -6,8 +6,7 @@ import PlayerList from "./PlayerList";
 const Game = (props) => {
     const { game, fetchGame } = props;
     const text = game.text || [];
-    const deck = game.deck || {};
-    const players = deck.all_players || [];
+    const players = game.players || [];
 
     useEffect(() => {
         fetchGame();

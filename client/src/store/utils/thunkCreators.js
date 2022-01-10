@@ -1,23 +1,32 @@
 import axios from "axios";
-import { doneSetCard, doneSetPlayer, gotGame, checkingForPair } from "../game";
-import { gotPlayers } from "../players";
+import { doneSetCard, doneSetPlayer, gotGame, checkingForPair, turnCheck } from "../game";
 
 // START GAME
 export const fetchGame = () => async (dispatch) => {
     try {
         const { data } = await axios.get(`http://localhost:5000/start`);
-        const { deck } = data;
-        dispatch(gotPlayers(deck.all_players))
-        dispatch(gotGame(data));
+
+        const gameData = {
+            ...data,
+            selectedCard: {},
+            selectedPlayer: {},
+            saidCards: [],
+            turn: 0,
+        }
+
+        dispatch(gotGame(gameData));
     } catch (error) {
         console.error(error);
     }
 }
 
+
+
 export const setPlayer = (player) => async (dispatch) => {
     if (!player.is_user) {
         dispatch(doneSetPlayer(player));
         dispatch(checkingForPair());
+        dispatch(turnCheck())
     }
 }
 

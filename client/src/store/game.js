@@ -1,12 +1,13 @@
 // ACTIONS
 
-import { setCardToStore, setPlayerToStore, setPairToStore } from "./utils/reducerFunctions";
+import { setCardToStore, setPlayerToStore, setPairToStore, computerTurn } from "./utils/reducerFunctions";
 
 const START_GAME = "START_GAME";
 const SET_FETCHING_STATUS = "SET_FETCHING_STATUS";
 const SET_PLAYER = "SET_PLAYER";
 const SET_CARD = "SET_CARD";
 const SET_FOUND_PAIR = "SET_FOUND_PAIR";
+const TURN_CHECK = "TURN_CHECK";
 
 export const gotGame = (game) => {
     return {
@@ -40,6 +41,10 @@ export const checkingForPair = () => {
     }
 }
 
+export const turnCheck = () => ({
+    type: TURN_CHECK,
+})
+
 // REDUCER
 
 const reducer = (state = { isFetching: true }, action) => {
@@ -52,6 +57,12 @@ const reducer = (state = { isFetching: true }, action) => {
             return setCardToStore(state, action.card);
         case SET_FOUND_PAIR:
             return setPairToStore(state)
+        case TURN_CHECK:
+            if (state.turn !== 0){
+                return computerTurn(state)
+            } else {
+                return state;
+            }
         default:
             return state;
     }

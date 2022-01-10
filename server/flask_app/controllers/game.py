@@ -5,15 +5,8 @@ from flask_app import app
 from flask import jsonify
 
 
-@app.route("/check")
-def check():
-    print("YES!")
-    return jsonify(MSG="YES")
-
-
 @app.route("/start")
 def start():
-    print("STARTING")
 
     deck = Deck()
 
@@ -27,10 +20,9 @@ def start():
     text_with_pairs = deck.deal_cards(6, [player_1, player_2, player_3, player_4])
 
     context = {
+        "cards": deck.serialized()['cards'],
+        "players": deck.serialized()['all_players'],
         "text": text_with_pairs,
-        "deck": deck.serialized(),
-        "selectedCard": {},
-        "selectedPlayer": {}
     }
 
 
