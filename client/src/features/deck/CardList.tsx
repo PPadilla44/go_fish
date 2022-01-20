@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import Card from './Card';
+import { CardInterface } from '../game/gameInterfaces';
+import { Card } from "./Card"
 
+interface Props {
+    cardList: Array<CardInterface>;
+    isUser: boolean;
+}
 
+export const CardList: React.FC<Props> = ({cardList, isUser}) => {
 
-const CardList = (props) => {
-
-    const { cardList, isUser } = props;
     const [rotateAmt, setRotateAmt] = useState(new Array(cardList.length));
 
     useEffect(() => {
@@ -49,5 +52,3 @@ const CardList = (props) => {
         </div>
     )
 }
-
-export default CardList

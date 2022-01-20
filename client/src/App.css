@@ -44,7 +44,7 @@
   align-items: center;
   width: var(--player-width);
   height: var(--player-height);
-  background-color: red;
+  /* background-color: red; */
   border-radius: 100%;
   cursor: pointer;
 }

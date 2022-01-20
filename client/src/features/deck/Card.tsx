@@ -1,15 +1,23 @@
 import React from 'react'
 import { useRef } from 'react';
-import { connect } from 'react-redux';
-import { setCard } from '../store/utils/thunkCreators';
-import CardFace from './CardFace';
+import { CardInterface } from '../game/gameInterfaces';
+import { CardFace } from './CardFace';
+import { setSelectedCard } from "../game/gameSlice"
+import { useAppDispatch } from '../../app/hooks';
 
-const Card = (props) => {
+interface Props {
+    data: CardInterface;
+    rotation: number;
+    isUser: boolean;
+}
 
-    const { data, rotation, setCard, isUser } = props
+export const Card: React.FC<Props> = ({ data, rotation, isUser }) => {
+
+    const dispatch = useAppDispatch();
+
     const { point_val: pointVal, suit } = data;
 
-    const suits = {
+    const suits: any =  {
         "spades": "♠︎",
         "hearts": "♥︎",
         "clubs": "♣︎",
@@ -17,7 +25,7 @@ const Card = (props) => {
     };
 
 
-    const ref = useRef(null)
+    const ref = useRef<HTMLDivElement>(null)
 
     const styles = {
         card: {
@@ -26,14 +34,16 @@ const Card = (props) => {
     }
 
 
-    const onHover = (e) => {
-        if (ref.current.style.transform.length < 20 && isUser) {
-            ref.current.style.transform += `translateY(-15px)`
+    const onHover = () => {
+        if (ref.current) {
+            if (ref.current.style.transform.length < 20 && isUser) {
+                ref.current.style.transform += `translateY(-15px)`
+            }
         }
     }
 
     const offHover = () => {
-        if(isUser) {
+        if (isUser && ref.current) {
             ref.current.style.transform = `rotate(${rotation}deg)`
         }
     }
@@ -44,15 +54,15 @@ const Card = (props) => {
             style={styles.card}
             onMouseOver={onHover}
             onMouseLeave={offHover}
-            onClick={() => setCard(data, isUser)}
+            onClick={() => { isUser && dispatch(setSelectedCard(data)) } }
         >
             <CardFace
-                top={true}
+                isTop={true}
                 pointVal={pointVal}
                 suit={suits[suit]}
             />
             <CardFace
-                top={false}
+                isTop={false}
                 pointVal={pointVal}
                 suit={suits[suit]}
             />
@@ -60,14 +70,3 @@ const Card = (props) => {
         </div>
     )
 }
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        setCard: (card, isUser) => {
-            dispatch(setCard(card, isUser))
-        }
-    }
-}
-
-
-export default connect(null, mapDispatchToProps)(Card);
