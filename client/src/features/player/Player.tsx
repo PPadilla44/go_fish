@@ -15,7 +15,6 @@ export const Player: React.FC<Props> = ({ index, data }) => {
 
     const dispatch = useAppDispatch();
     const turn = useSelector((state: RootState) => state.game.data.turn)
-    console.log(turn);
 
 
     const { hand, name, is_user } = data;

@@ -4,8 +4,8 @@ export interface GameInterface {
     players: Array<PlayerInterface>;
     text: Array<string>;
     saidCards: Array<SaidCaidInterface>;
-    selectedCard?: CardInterface;
-    selectedPlayer?: PlayerInterface;
+    selectedCard: CardInterface | null;
+    selectedPlayer: PlayerInterface | null;
     turn: number
 }
 

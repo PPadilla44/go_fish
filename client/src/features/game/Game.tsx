@@ -3,7 +3,7 @@ import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import { List } from "../list";
 import { Player } from "../player";
 import { PlayerInterface } from "./gameInterfaces";
-import { fetchGame, selectGame } from "./gameSlice";
+import { fetchGame, selectGame, doComputerTurn } from "./gameSlice";
 
 
 
@@ -18,8 +18,17 @@ export const Game = () => {
 
     const data = game.data;
     const { text, players } = data;
+    
+        useEffect(() => {
+            console.log(game.data.turn);
+            if(game.data.turn !== 0){
+                console.log("COMPUTER");
+                
+                dispatch(doComputerTurn())
+            }
+        },[game.data.turn])
 
-    console.log(game);
+    console.log(game.data);
     
     if (game.status === "loading") {
         return <p>Loading...</p>

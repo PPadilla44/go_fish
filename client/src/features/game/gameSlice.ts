@@ -2,7 +2,7 @@ import axios from "axios";
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, AppThunk } from '../../app/store';
 import { CardInterface, GameInterface, PlayerInterface } from "./gameInterfaces";
-import { setCardToStore, setPlayerToStore } from "./gameReducers";
+import { computerTurn, setCardToStore, setPlayerToStore } from "./gameReducers";
 
 
 export interface GameState {
@@ -15,8 +15,8 @@ const initialState: GameState = {
         cards: [],
         players: [],
         saidCards: [],
-        selectedCard: undefined,
-        selectedPlayer: undefined,
+        selectedCard: null,
+        selectedPlayer: null,
         text: [],
         turn: 0
     },
@@ -29,8 +29,8 @@ export const fetchGame = createAsyncThunk(
         const { data } = await axios.get(`http://localhost:5000/start`);
         const gameData = {
             ...data,
-            selectedCard: {},
-            selectedPlayer: {},
+            selectedCard: null,
+            selectedPlayer: null,
             saidCards: [],
             turn: 0,
         }
@@ -44,8 +44,9 @@ export const gameSlice = createSlice({
     name: "game",
     initialState,
     reducers: {
-        setSelectedCard: (state, action: PayloadAction<CardInterface>) => { state.data = setCardToStore(state.data, action.payload)},
+        setSelectedCard: (state, action: PayloadAction<CardInterface>) => { state.data = setCardToStore(state.data, action.payload) },
         setSelectedPlayer: (state, action: PayloadAction<PlayerInterface>) => { state.data = setPlayerToStore(state.data, action.payload) },
+        doComputerTurn: (state) => { state.data = computerTurn(state.data) }
     },
     extraReducers: (builder) => {
         builder.addCase(fetchGame.pending, (state) => {
@@ -58,7 +59,7 @@ export const gameSlice = createSlice({
     },
 });
 
-export const { setSelectedCard, setSelectedPlayer } = gameSlice.actions;
+export const { setSelectedCard, setSelectedPlayer, doComputerTurn } = gameSlice.actions;
 
 export const selectGame = (state: RootState) => state.game;
 
