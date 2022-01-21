@@ -70,11 +70,10 @@ export const incrementIfOdd = (): AppThunk => (
     getState
 ) => {
     const currTurn = selectTurn(getState());
-    
-    if (currTurn !== 0) {
-        dispatch(doComputerTurn());
-    }
     console.log(currTurn);
+    if (currTurn !== 0) {
+        setTimeout(() => {dispatch(doComputerTurn());}, 3000) 
+    }
     
 
 };

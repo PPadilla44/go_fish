@@ -53,15 +53,15 @@ export const Game = () => {
     }
 
     return (
-        <div className="game" style={{}}>
+        <div className="grid grid-cols-3 grid-rows-3 w-screen h-screen bg-gray-200  place-items-center">
             <List
                 data={text}
                 renderMethod={renderText}
+                className="row-start-2 col-start-2 font-semibold"
             />
-            <List
-                data={players}
-                renderMethod={renderPlayer}
-            />
+            
+            { players.map((item, i) => renderPlayer(item, i)) }
+
         </div>
     );
 };

@@ -41,19 +41,13 @@ export const setPlayerToStore = (data: WritableDraft<GameInterface>, payload: Pl
         let turn = gameCopy.turn;
         gameCopy.turn = turn + 1;
         gameCopy.selectedPlayer = null;
-        console.log("REDUCER", gameCopy.saidCards);
-        console.log("REDUCER", gameCopy.saidCards.length);
         return gameCopy
     }
-    console.log("REDUCER", gameCopy.saidCards);
-    console.log("REDUCER", gameCopy.saidCards.length);
     
     return filterCards(gameCopy, foundPair);
 }
 
 export const setCardToStore = (data: WritableDraft<GameInterface>, payload: CardInterface) => {
-    console.log("CHOSEN CARd");
-
     return { ...data, selectedCard: payload }
 }
 
@@ -106,9 +100,6 @@ export const computerTurn = (game: WritableDraft<GameInterface>) => {
         gameCopy.selectedPlayer = found.otherCard.player;
         gameCopy.selectedCard = found.myCard;
 
-        console.log(gameCopy.selectedPlayer.name);
-
-
         let text = `${computer.name} asked ${found.otherCard.player.name} for a ${found.myCard.string_val}`;
         console.log(text);
 
@@ -118,7 +109,6 @@ export const computerTurn = (game: WritableDraft<GameInterface>) => {
     }
 
     const { compCard, otherCard, chosenPlayer } = computerChooseRandom(playersCopy, game.turn, computerHand)
-    console.log(compCard);
 
     if (compCard.point_val === otherCard.point_val) {
 

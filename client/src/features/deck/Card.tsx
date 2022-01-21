@@ -17,7 +17,7 @@ export const Card: React.FC<Props> = ({ data, rotation, isUser }) => {
 
     const { point_val: pointVal, suit } = data;
 
-    const suits: any =  {
+    const suits: any = {
         "spades": "♠︎",
         "hearts": "♥︎",
         "clubs": "♣︎",
@@ -49,12 +49,16 @@ export const Card: React.FC<Props> = ({ data, rotation, isUser }) => {
     }
 
     return (
-        <div className={isUser ? "card card-user" : "card card-other"}
+        <div
+            className={isUser ? 
+                "card card-user" 
+                : 
+                "card card-other"}
             ref={ref}
             style={styles.card}
             onMouseOver={onHover}
             onMouseLeave={offHover}
-            onClick={() => { isUser && dispatch(setSelectedCard(data)) } }
+            onClick={() => { isUser && dispatch(setSelectedCard(data)) }}
         >
             <CardFace
                 isTop={true}

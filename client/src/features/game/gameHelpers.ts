@@ -50,12 +50,9 @@ export const filterCards = (game: WritableDraft<GameInterface>, foundPair: CardI
 
 
     if (saidCardsCopy.length > 0) {
-        console.log("B4",saidCardsCopy);
-        
         game.saidCards = saidCardsCopy.filter(({ card }) => {
-            return card.id !== selectedCardCopy.id || foundPair.id
+            return card.id !== selectedCardCopy.id && card.id !== foundPair.id
         });
-        console.log("SAD CARD",saidCardsCopy);
     }
 
     players[game.turn] = playerCopy;

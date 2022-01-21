@@ -12,43 +12,6 @@
   --player-height: 150px;
 }
 
-.App {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  width: 100vw;
-  background-color: rgb(39, 39, 39);
-}
-
-.gv {
-  background-color: gainsboro;
-  width: var(--game-width);
-  height: var(--game-height);
-  overflow: hidden;
-  position: relative;
-}
-
-.game {
-  /* position: relative; */
-}
-
-.player-list{
-  /* position: relative; */
-}
-
-.player {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: var(--player-width);
-  height: var(--player-height);
-  /* background-color: red; */
-  border-radius: 100%;
-  cursor: pointer;
-}
-
 
 .card-list {
   display: flex;
@@ -80,14 +43,6 @@
   padding: 5px;
 }
 
-
-.card-top {
-  align-self: flex-start;
-}
-.card-btm {
-  align-self: flex-end;
-  transform: rotate(-180deg);
-}
 
 .card-user:hover {
   z-index: 1;
