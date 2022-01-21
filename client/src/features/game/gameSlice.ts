@@ -58,9 +58,26 @@ export const gameSlice = createSlice({
             })
     },
 });
-
 export const { setSelectedCard, setSelectedPlayer, doComputerTurn } = gameSlice.actions;
 
 export const selectGame = (state: RootState) => state.game;
+
+export const selectTurn = (state: RootState) => state.game.data.turn;
+
+
+export const incrementIfOdd = (): AppThunk => (
+    dispatch,
+    getState
+) => {
+    const currTurn = selectTurn(getState());
+    
+    if (currTurn !== 0) {
+        dispatch(doComputerTurn());
+    }
+    console.log(currTurn);
+    
+
+};
+
 
 export default gameSlice.reducer;

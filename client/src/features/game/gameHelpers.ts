@@ -30,13 +30,13 @@ export const filterCards = (game: WritableDraft<GameInterface>, foundPair: CardI
 
     const playersCopies = [...game.players];
     const playerCopy = { ...playersCopies[game.turn] };
-
-    console.log(playerCopy.name);
+    const saidCardsCopy = [ ...game.saidCards ];
+    const selectedCardCopy = {...game.selectedCard}
 
 
     const hand = [...playerCopy.hand];
 
-    playerCopy.hand = hand.filter(({ id }) => id !== game.selectedCard!.id);
+    playerCopy.hand = hand.filter(({ id }) => id !== selectedCardCopy.id);
 
     const players = playersCopies.map((oPlayer) => {
         if (oPlayer.id === game.selectedPlayer?.id) {
@@ -49,8 +49,13 @@ export const filterCards = (game: WritableDraft<GameInterface>, foundPair: CardI
     });
 
 
-    if (game.saidCards.length > 0) {
-        game.saidCards = game.saidCards.filter(({ card }) => card.id !== game.selectedCard!.id || foundPair.id);
+    if (saidCardsCopy.length > 0) {
+        console.log("B4",saidCardsCopy);
+        
+        game.saidCards = saidCardsCopy.filter(({ card }) => {
+            return card.id !== selectedCardCopy.id || foundPair.id
+        });
+        console.log("SAD CARD",saidCardsCopy);
     }
 
     players[game.turn] = playerCopy;
@@ -63,7 +68,7 @@ export const filterCards = (game: WritableDraft<GameInterface>, foundPair: CardI
 
 export const computerChooseRandom = (playersCopy: PlayerInterface[], turn: number, computerHand: CardInterface[]) => {
 
-    let max = playersCopy.length - 1;
+    let max = playersCopy.length;
     let randomInt = Math.floor(Math.random() * max)
 
     while (randomInt === turn) {
@@ -73,10 +78,10 @@ export const computerChooseRandom = (playersCopy: PlayerInterface[], turn: numbe
 
     const otherPlayerHand = [...chosenPlayer.hand];
 
-    let compCardInt = Math.floor(Math.random() * computerHand.length - 1);
+    let compCardInt = Math.floor(Math.random() * computerHand.length);
     const compCard = { ...computerHand[compCardInt] };
 
-    let otherCardInt = Math.floor(Math.random() * otherPlayerHand.length - 1);
+    let otherCardInt = Math.floor(Math.random() * otherPlayerHand.length);
     const otherCard = { ...otherPlayerHand[otherCardInt] };
 
     return {

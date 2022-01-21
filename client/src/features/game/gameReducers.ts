@@ -13,6 +13,8 @@ export const setPlayerToStore = (data: WritableDraft<GameInterface>, payload: Pl
         return gameCopy;
     }
 
+
+
     if (gameCopy.selectedPlayer) {
         gameCopy.text = ["Player Chosen Already Chosen"]
         return gameCopy;
@@ -23,23 +25,35 @@ export const setPlayerToStore = (data: WritableDraft<GameInterface>, payload: Pl
     let text = `${gameCopy.players[0].name} asked ${gameCopy.selectedPlayer.name} for a ${gameCopy.selectedCard.string_val}`;
     gameCopy.text = [text]
 
+    console.log(text);
+
+
     const foundPair: CardInterface | boolean = checkForPairs(gameCopy.selectedPlayer, gameCopy.selectedCard);
 
 
     if (!foundPair) {
         const playersCopies = [...gameCopy.players];
         const playerCopy = { ...playersCopies[gameCopy.turn] };
-        gameCopy.saidCards = [...gameCopy.saidCards, { card: gameCopy.selectedCard, player: playerCopy }]
+        if (!checkForPairInSaidCards(playerCopy.hand, gameCopy.saidCards)) {
+            gameCopy.saidCards = [...gameCopy.saidCards, { card: gameCopy.selectedCard, player: playerCopy }]
+        }
         gameCopy.text = ["GO FISH"];
         let turn = gameCopy.turn;
         gameCopy.turn = turn + 1;
+        gameCopy.selectedPlayer = null;
+        console.log("REDUCER", gameCopy.saidCards);
+        console.log("REDUCER", gameCopy.saidCards.length);
         return gameCopy
     }
-
+    console.log("REDUCER", gameCopy.saidCards);
+    console.log("REDUCER", gameCopy.saidCards.length);
+    
     return filterCards(gameCopy, foundPair);
 }
 
 export const setCardToStore = (data: WritableDraft<GameInterface>, payload: CardInterface) => {
+    console.log("CHOSEN CARd");
+
     return { ...data, selectedCard: payload }
 }
 
@@ -53,20 +67,20 @@ export const computerTurn = (game: WritableDraft<GameInterface>) => {
     const computerHand = [...computer.hand];
     let turnCopy = gameCopy.turn;
 
-    console.log(computer.name);
 
     if (saidCards.length < 1) {
-        console.log("RANDOM CARDS");
 
 
-        const { compCard, otherCard, chosenPlayer } = computerChooseRandom(playersCopy, game.turn, computerHand)
+        const { compCard, otherCard, chosenPlayer } = computerChooseRandom(playersCopy, game.turn, computerHand);
 
         if (compCard.point_val === otherCard.point_val) {
 
             gameCopy.selectedCard = compCard;
             gameCopy.selectedPlayer = chosenPlayer
+            let text = `${computer.name} asked ${chosenPlayer.name} for a ${compCard.string_val}`;
+            console.log(text);
 
-            console.log("FOUND RANDOMSLY");
+            gameCopy.text = [text]
             return filterCards(gameCopy, otherCard)
         }
 
@@ -76,8 +90,12 @@ export const computerTurn = (game: WritableDraft<GameInterface>) => {
         } else {
             gameCopy.turn = turnCopy;
         }
+        let text = `${computer.name} asked ${chosenPlayer.name} for a ${compCard.string_val}`;
+        gameCopy.text = [text]
+        gameCopy.saidCards = [...gameCopy.saidCards, { card: compCard, player: computer }]
 
-        console.log("NOT FOND Randomly");
+        console.log(text);
+
         return gameCopy;
 
     }
@@ -91,24 +109,29 @@ export const computerTurn = (game: WritableDraft<GameInterface>) => {
         console.log(gameCopy.selectedPlayer.name);
 
 
-        console.log('IN SAID CARDS');
+        let text = `${computer.name} asked ${found.otherCard.player.name} for a ${found.myCard.string_val}`;
+        console.log(text);
 
+        gameCopy.text = [text]
         return filterCards(gameCopy, found.otherCard.card)
 
     }
 
-    console.log("NOT IN SAID CARDS");
     const { compCard, otherCard, chosenPlayer } = computerChooseRandom(playersCopy, game.turn, computerHand)
+    console.log(compCard);
 
     if (compCard.point_val === otherCard.point_val) {
 
         gameCopy.selectedCard = compCard;
         gameCopy.selectedPlayer = chosenPlayer
 
-        console.log("FOUND RANDOMSLY");
+        let text = `${computer.name} asked ${chosenPlayer.name} for a ${compCard.string_val}`;
+        console.log(text);
+
+        gameCopy.text = [text]
         return filterCards(gameCopy, otherCard)
     }
-    console.log("NOT FOND Randomly");
+
 
     turnCopy++
     if (turnCopy > 3) {
@@ -116,6 +139,11 @@ export const computerTurn = (game: WritableDraft<GameInterface>) => {
     } else {
         gameCopy.turn = turnCopy;
     }
+    gameCopy.saidCards = [...gameCopy.saidCards, { card: compCard, player: computer }]
+
+    let text = `${computer.name} asked ${chosenPlayer.name} for a ${compCard.string_val}`;
+    console.log(text);
+    gameCopy.text = [text]
 
     return gameCopy;
 }
