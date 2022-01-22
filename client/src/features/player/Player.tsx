@@ -21,16 +21,22 @@ export const Player: React.FC<Props> = ({ index, data }) => {
 
     const position : string[] = [
             // Bottom PLayer 1
-            "row-start-3 col-start-2",
+            "row-start-3 col-start-2 self-end justify-self-center",
             
             // LEFT player 2
-            "row-start-2 col-start-1",
+            "row-start-2 col-start-1 self-center justify-self-end",
             
-            // Right Plyaer 4
-            "row-start-2 col-start-3",
+            // TOP Player 3
+            "row-start-1 col-start-2 self-start justify-self-center",
             
-            // Player 3
-            "row-start-1 col-start-2",
+            // Right Player 4
+            "row-start-2 col-start-3 self-center justify-self-start",
+    ]
+    const cardsListClass = [
+        "",
+        "rotate-90",
+        "rotate-180",
+        "-rotate-90",
     ]
 
     const handleSelectUser = () => {
@@ -41,11 +47,11 @@ export const Player: React.FC<Props> = ({ index, data }) => {
 
     return (
         <div 
-        className={`${position[index]} flex flex-col items-center w-80 h-40 
-        rounded-full bg-red-600 cursor-pointer `}
+        className={`${position[index]} flex flex-col items-center w-60 h-32
+        cursor-pointer relative`}
         onClick={handleSelectUser}>
-            <h1 className='text-3xl font-semibold' >{name}</h1>
-            <CardList cardList={hand} isUser={is_user} />
+            <h1 className='text-3xl font-semibold absolute right-0 bottom-0' >{name}</h1>
+            <CardList cardList={hand} isUser={is_user} className={cardsListClass[index]} />
         </div>
     )
 }

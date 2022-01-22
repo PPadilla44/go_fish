@@ -1,9 +1,11 @@
 import './App.css';
-import { Game } from './features/game'; 
+import { Game } from './features/game';
 
 function App() {
   return (
-    <Game />
+    <div className='w-screen h-screen flex items-center justify-center'>
+      <Game />
+    </div>
   );
 }
 

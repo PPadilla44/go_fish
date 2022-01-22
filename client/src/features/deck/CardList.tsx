@@ -6,9 +6,10 @@ import { Card } from "./Card"
 interface Props {
     cardList: Array<CardInterface>;
     isUser: boolean;
+    className?: string;
 }
 
-export const CardList: React.FC<Props> = ({cardList, isUser}) => {
+export const CardList: React.FC<Props> = ({cardList, isUser, className}) => {
 
     const [rotateAmt, setRotateAmt] = useState(new Array(cardList.length));
 
@@ -38,7 +39,7 @@ export const CardList: React.FC<Props> = ({cardList, isUser}) => {
     }, [cardList])
 
     return (
-        <div className={isUser ? 'card-list card-list-user': "card-list card-list-other"}>
+        <div className={`${className} ${isUser ? 'card-list card-list-user': "card-list card-list-other"}`}>
             {
                 cardList.map((c, i) =>
                     <Card

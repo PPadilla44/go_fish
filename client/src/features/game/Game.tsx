@@ -3,7 +3,7 @@ import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import { List } from "../list";
 import { Player } from "../player";
 import { PlayerInterface } from "./gameInterfaces";
-import { fetchGame, selectGame, doComputerTurn, incrementIfOdd } from "./gameSlice";
+import { fetchGame, selectGame, turnCheck } from "./gameSlice";
 
 
 
@@ -21,7 +21,7 @@ export const Game = () => {
     const { text, players } = data;
     
         useEffect(() => {
-            dispatch(incrementIfOdd())
+            dispatch(turnCheck())
         },[data])
 
         console.log(data);
@@ -53,11 +53,11 @@ export const Game = () => {
     }
 
     return (
-        <div className="grid grid-cols-3 grid-rows-3 w-screen h-screen bg-gray-200  place-items-center">
+        <div className="game grid place grid-cols-3 grid-rows-3 bg-gray-200">
             <List
                 data={text}
                 renderMethod={renderText}
-                className="row-start-2 col-start-2 font-semibold"
+                className="row-start-2 col-start-2 font-semibold place-self-center"
             />
             
             { players.map((item, i) => renderPlayer(item, i)) }

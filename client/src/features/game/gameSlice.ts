@@ -44,6 +44,7 @@ export const gameSlice = createSlice({
     name: "game",
     initialState,
     reducers: {
+        setText: (state, action: PayloadAction<string[]>) => { state.data = { ...state.data, text: action.payload } },
         setSelectedCard: (state, action: PayloadAction<CardInterface>) => { state.data = setCardToStore(state.data, action.payload) },
         setSelectedPlayer: (state, action: PayloadAction<PlayerInterface>) => { state.data = setPlayerToStore(state.data, action.payload) },
         doComputerTurn: (state) => { state.data = computerTurn(state.data) }
@@ -58,14 +59,14 @@ export const gameSlice = createSlice({
             })
     },
 });
-export const { setSelectedCard, setSelectedPlayer, doComputerTurn } = gameSlice.actions;
+export const { setSelectedCard, setSelectedPlayer, doComputerTurn, setText } = gameSlice.actions;
 
 export const selectGame = (state: RootState) => state.game;
 
 export const selectTurn = (state: RootState) => state.game.data.turn;
 
 
-export const incrementIfOdd = (): AppThunk => (
+export const turnCheck = (): AppThunk => (
     dispatch,
     getState
 ) => {
@@ -74,6 +75,8 @@ export const incrementIfOdd = (): AppThunk => (
     if (currTurn !== 0) {
         setTimeout(() => {dispatch(doComputerTurn());}, 3000) 
     }
+    console.log("Check");
+    
     
 
 };

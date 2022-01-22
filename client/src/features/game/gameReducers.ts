@@ -34,7 +34,7 @@ export const setPlayerToStore = (data: WritableDraft<GameInterface>, payload: Pl
     if (!foundPair) {
         const playersCopies = [...gameCopy.players];
         const playerCopy = { ...playersCopies[gameCopy.turn] };
-        if (!checkForPairInSaidCards(playerCopy.hand, gameCopy.saidCards)) {
+        if (!checkForPairInSaidCards(playerCopy, playerCopy.hand, gameCopy.saidCards)) {
             gameCopy.saidCards = [...gameCopy.saidCards, { card: gameCopy.selectedCard, player: playerCopy }]
         }
         gameCopy.text = ["GO FISH"];
@@ -94,7 +94,7 @@ export const computerTurn = (game: WritableDraft<GameInterface>) => {
 
     }
 
-    const found: false | { otherCard: SaidCaidInterface; myCard: CardInterface } = checkForPairInSaidCards(computerHand, saidCards);
+    const found: false | { otherCard: SaidCaidInterface; myCard: CardInterface } = checkForPairInSaidCards(computer, computerHand, saidCards);
 
     if (found) {
         gameCopy.selectedPlayer = found.otherCard.player;
@@ -105,15 +105,14 @@ export const computerTurn = (game: WritableDraft<GameInterface>) => {
 
         gameCopy.text = [text]
         return filterCards(gameCopy, found.otherCard.card)
-
     }
 
-    const { compCard, otherCard, chosenPlayer } = computerChooseRandom(playersCopy, game.turn, computerHand)
+    const { compCard, otherCard, chosenPlayer } = computerChooseRandom(playersCopy, game.turn, computerHand);
 
     if (compCard.point_val === otherCard.point_val) {
 
         gameCopy.selectedCard = compCard;
-        gameCopy.selectedPlayer = chosenPlayer
+        gameCopy.selectedPlayer = chosenPlayer;
 
         let text = `${computer.name} asked ${chosenPlayer.name} for a ${compCard.string_val}`;
         console.log(text);
@@ -133,7 +132,7 @@ export const computerTurn = (game: WritableDraft<GameInterface>) => {
 
     let text = `${computer.name} asked ${chosenPlayer.name} for a ${compCard.string_val}`;
     console.log(text);
-    gameCopy.text = [text]
+    gameCopy.text = [text];
 
     return gameCopy;
 }

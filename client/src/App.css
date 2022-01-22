@@ -4,12 +4,17 @@
 }
 
 :root {
-  --game-width: 1200px;
-  --game-height: 675px;
-  --card-width: 75px;
-  --card-height: 100px;
+  --game-width: 800px;
+  --game-height: 450px;
+  --card-width: 50px;
+  --card-height: 75px;
   --player-width: 300px;
   --player-height: 150px;
+}
+
+.game {
+  width: var(--game-width);
+  height: var(--game-height);
 }
 
 
@@ -24,14 +29,13 @@
 
 .card-list-user:hover .card {
   transform-origin: center 600px; 
-
 }
 
 .card {
   width: var(--card-width);
   height: var(--card-height);
   background-color: white;
-  border-radius: 8px;
+  border-radius: 7px;
   border: 1px solid black;
   display: flex;
   justify-content: space-between;

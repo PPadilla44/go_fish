@@ -12,11 +12,11 @@ export const checkForPairs = (selectedPlayer: PlayerInterface, selectedCard: Car
     return false;
 }
 
-export const checkForPairInSaidCards = (computerHand: Array<CardInterface>, saidCards: Array<SaidCaidInterface>) => {
+export const checkForPairInSaidCards = (player: PlayerInterface, computerHand: Array<CardInterface>, saidCards: Array<SaidCaidInterface>) => {
 
     for (const card of computerHand) {
         for (const oCard of saidCards) {
-            if (card.point_val === oCard.card.point_val) {
+            if (player.id !== oCard.player.id && card.point_val === oCard.card.point_val) {
                 return { otherCard: oCard, myCard: card };
             }
         }

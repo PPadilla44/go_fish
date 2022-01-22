@@ -16,7 +16,7 @@ export const CardFace: React.FC<Props> = ({ isTop, pointVal, suit }) => {
     }
 
     return (
-        <div className={ isTop ? "self-start" : "self-end rotate-180"}>
+        <div className={ `text-xs font-semibold ${isTop ? "self-start" : "self-end rotate-180"}`}>
             <h4>{letters[pointVal] || pointVal}</h4>
             <h4>{suit}</h4>
         </div>
